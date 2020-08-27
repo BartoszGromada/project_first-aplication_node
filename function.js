@@ -1,18 +1,12 @@
 const set = require( './setings' );
 
-exports.randChoice = function randChoice(arr) {
-    const arrLength = arr.length
-    const randomNumber = Math.floor(Math.random() * arrLength)
-    const randomElem = arr[randomNumber]
+function randChoice(arr) {
+    const arrLength = arr.length;
+    const randomNumber = Math.floor(Math.random() * arrLength);
+    const randomElem = arr[randomNumber];
     return randomElem
 }
-
-/*function randChoice(arr) {
-    const arrLength = arr.length
-    const randomNumber = Math.floor(Math.random() * arrLength)
-    const randomElem = arr[randomNumber]
-    return randomElem
-}*/
+exports.randChoice = randChoice;
 
 exports.randName = function randName(arr) {
     if (arr == 'k') {
