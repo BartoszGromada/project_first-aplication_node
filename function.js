@@ -1,6 +1,6 @@
-const set = require( './setings' );
+const settings = require( './setings' );
 
-function randChoice(arr) {
+randChoice = arr => {
     const arrLength = arr.length;
     const randomNumber = Math.floor(Math.random() * arrLength);
     const randomElem = arr[randomNumber];
@@ -8,13 +8,13 @@ function randChoice(arr) {
 }
 exports.randChoice = randChoice;
 
-exports.randName = function randName(arr) {
+exports.randName = randName = arr => {
     if (arr == 'k') {
-        const choiceName = randChoice(set.femaleNames);
+        const choiceName = randChoice(settings.array.date.femaleNames);
         return choiceName;
     }
     if (arr == 'm') {
-        const choiceName = randChoice(set.maleNames);
+        const choiceName = randChoice(settings.array.date.maleNames);
         return choiceName;
     }
     else {
@@ -22,12 +22,12 @@ exports.randName = function randName(arr) {
     }
 }
 
-exports.randAge = function randAge() {
-    const randAge = Math.floor(Math.random() * 50 + set.minAge);
+exports.randAge = randAge = () => {
+    const randAge = Math.floor(Math.random() * 50 + settings.other.age.minAge);
     return randAge
 }
 
-exports.mailCreation = function mailCreation(choiceName, choiceLastName, domen, mail) {
+exports.mailCreation = mailCreation = (choiceName, choiceLastName, domen, mail) => {
     const choiceDomen = randChoice(domen);
     const choiceMail = choiceName.toLowerCase() + '.' + choiceLastName.toLowerCase() + '@' + choiceDomen;
     const choiceReversMail = choiceLastName.toLowerCase() + '.' + choiceName.toLowerCase() + '@' + choiceDomen;
@@ -57,26 +57,23 @@ exports.mailCreation = function mailCreation(choiceName, choiceLastName, domen, 
     }
 }
 
-exports.randNumber = function randNumber () {
+exports.randNumber = randNumber = () => {
     const phoneNumberArray = [];
-    const PhoneNumberSeparator = '-';
+
     for (let i=0; i < 9; i++) {
         const randNumber = Math.floor(Math.random() * 9);
-        phoneNumberArray.push (randNumber);
+        phoneNumberArray.push(randNumber);
     }
     const phoneNumberWithCommas = phoneNumberArray.join();
     const phoneNumber = phoneNumberWithCommas .replace(/,/g, "");
-    const finallyPhoneNumber = phoneNumber.slice(0,3) + PhoneNumberSeparator  + phoneNumber.slice(3,6) + PhoneNumberSeparator + phoneNumber.slice(6,9)
+    const finallyPhoneNumber = phoneNumber.slice(0,3) + settings.other.phone.PhoneNumberSeparator + phoneNumber.slice(3,6) + settings.other.phone.PhoneNumberSeparator + phoneNumber.slice(6,9)
     return finallyPhoneNumber
 }
 
-exports.randPESEL = function randPESEL (choiseGender, choiceAge) {
+exports.randPESEL = randPESEL = (choiseGender, choiceAge) => {
 
     const PESEL = [];
-    const keyPESEL= [1,3,7,9,1,3,7,9,1,3]
     const resultArray = [];
-    const femaleNumber = [0, 2, 4, 6, 8];
-    const maleNumber = [1, 3, 5, 7, 9];
 
     let month = 0;
     let randDay = 0;
@@ -93,7 +90,7 @@ exports.randPESEL = function randPESEL (choiseGender, choiceAge) {
     const randMonth = Math.floor(Math.random() * 12 + 1);
 
     if (fullYear < 1900) {
-            month = (randMonth + 80).toString();
+        month = (randMonth + 80).toString();
     }
     if (fullYear > 2000) {
         month = (randMonth + 20).toString();
@@ -142,16 +139,16 @@ exports.randPESEL = function randPESEL (choiseGender, choiceAge) {
     //number 10 (sex)
 
     if (choiseGender == 'k') {
-        sex = randChoice(femaleNumber);
+        sex = randChoice(settings.array.PESEL.femaleNumber);
     }
     else {
-        sex = randChoice(maleNumber);
+        sex = randChoice(settings.array.PESEL.maleNumber);
     }
     PESEL.push(sex.toString());
 
     //number 11 (control)
     for ( let i = 0; i < 10; i++) {
-        const result = PESEL[i] * keyPESEL[i]
+        const result = PESEL[i] * settings.array.PESEL.key[i]
         if (result < 10) {
             resultArray.push(result);
         }

@@ -1,24 +1,24 @@
 const fs = require('fs');
 
 const func = require( './function' );
-const set = require( './setings' );
+const settings = require( './setings' );
 
-for (let i=0; i < set.numberRecord; i++) {
+for (let i=0; i < settings.other.global.numberRecord; i++) {
     console.log('--------------');
-    const choiceGender = func.randChoice(set.gender);
+    const choiceGender = func.randChoice(settings.array.date.gender);
     console.log('choiceGender: ', choiceGender);
 
     const choiceName = func.randName(choiceGender);
     console.log('choiceName: ', choiceName);
     
-    const choiceLastName = func.randChoice(set.lastNames);
+    const choiceLastName = func.randChoice(settings.array.date.lastNames);
     console.log('choiceLastName: ', choiceLastName);
 
     const choiceAge = func.randAge();
     console.log('choiceAge: ', choiceAge);
 
-    const choiceMail = func.mailCreation(choiceName, choiceLastName, set.domen, set.mail);
-    set.mail.push(choiceMail);
+    const choiceMail = func.mailCreation(choiceName, choiceLastName, settings.array.date.domen, settings.array.date.mail);
+    settings.array.date.mail.push(choiceMail);
     console.log('choiceMail: ', choiceMail);
 
     const choiceNumber = func.randNumber();
@@ -27,7 +27,7 @@ for (let i=0; i < set.numberRecord; i++) {
     const choicePESEL = func.randPESEL (choiceGender, choiceAge);
     console.log('choicePESEL: ', choicePESEL);
 
-    set.people.push({
+    settings.array.date.people.push({
         name: choiceName,
         lastName: choiceLastName,
         gender: choiceGender,
@@ -38,9 +38,9 @@ for (let i=0; i < set.numberRecord; i++) {
     });
 
 }
-console.log('people: ', set.people);
+console.log('people: ', settings.array.date.people);
 
-const peopleJSON = JSON.stringify(set.people);
+const peopleJSON = JSON.stringify(settings.array.date.people);
 
 fs.writeFile('people.json', peopleJSON, (err) => {
     if (err) throw err;
